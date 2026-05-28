@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerión Chile SpA — Sistemas de Llamado Paciente-Enfermera VoIP/PoE</title>
+<meta name="description" content="Gerión Chile SpA — Sistemas de llamado paciente-enfermera VoIP/PoE para hospitales y clínicas. Certificado Decreto N°59 MINSAL y SEC. Partner oficial Gerión España.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#f8fafc;--bd:#1e3a8a;--bm:#2563eb;--cy:#06b6d4;--tx:#1e293b;--mt:#64748b;--wh:#ffffff;--hh:72px;--r:12px;--sh:0 4px 24px rgba(30,58,138,.10);--shl:0 16px 48px rgba(30,58,138,.14)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--tx);background:var(--bg);line-height:1.6;overflow-x:hidden}
+body.no-scroll{overflow:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.tag{display:inline-flex;align-items:center;gap:7px;background:rgba(6,182,212,.12);color:var(--cy);font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:16px}
+.st{font-size:clamp(26px,4vw,40px);font-weight:800;line-height:1.18;margin-bottom:14px}
+.ss{color:var(--mt);font-size:16px;max-width:560px;line-height:1.75}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:8px;font-weight:700;font-size:14.5px;transition:all .2s;border:none}
+.btnp{background:var(--bm);color:#fff}.btnp:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.35)}
+.btng{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}.btng:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.65)}
+.btnc{background:var(--cy);color:var(--bd)}.btnc:hover{background:#0891b2;transform:translateY(-1px)}
+.ctr{text-align:center}.ctr .ss{margin:0 auto}
+
+/* HEADER */
+#hdr{position:sticky;top:0;z-index:900;height:var(--hh);background:rgba(255,255,255,.97);backdrop-filter:blur(12px);transition:box-shadow .3s}
+#hdr.scrolled{box-shadow:0 2px 20px rgba(30,58,138,.12)}
+.hdi{display:flex;align-items:center;justify-content:space-between;height:100%}
+.logo img{height:42px;object-fit:contain}
+.nav a{padding:8px 13px;border-radius:6px;font-size:13.5px;font-weight:600;color:var(--tx);transition:all .2s}
+.nav a:hover,.nav a.active{color:var(--bm);background:rgba(37,99,235,.07)}
+.hdr{display:flex;align-items:center;gap:12px}
+.bcot{background:var(--bm);color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13.5px;border:none;transition:all .2s}
+.bcot:hover{background:#1d4ed8;transform:translateY(-1px)}
+.hbg{display:none;background:none;border:none;font-size:22px;color:var(--tx);padding:6px}
+
+/* DRAWER */
+.mnav{position:fixed;top:0;left:-100%;width:285px;height:100dvh;background:#fff;z-index:9000;padding:24px;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 32px rgba(0,0,0,.12)}
+.mnav.open{left:0}
+.mnh{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.mnc{background:none;border:none;font-size:20px;color:var(--tx)}
+.mnl a{display:block;padding:14px 0;font-size:15px;font-weight:600;color:var(--tx);border-bottom:1px solid #f1f5f9;transition:color .2s}
+.mnl a:hover{color:var(--bm)}
+.mnct{margin-top:24px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:8000;opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.show{opacity:1;pointer-events:all}
+
+/* HERO */
+#hero{background:var(--bd);padding:96px 0 80px;position:relative;overflow:hidden}
+.hgb{position:absolute;inset:0;background-image:linear-gradient(rgba(6,182,212,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.06) 1px,transparent 1px);background-size:60px 60px}
+.hgl{position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.13) 0%,transparent 65%);top:-160px;right:-120px;pointer-events:none}
+.hgl2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.15) 0%,transparent 65%);bottom:-80px;left:-80px;pointer-events:none}
+.hin{position:relative;z-index:2;display:grid;grid-template-columns:1fr 370px;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(6,182,212,.14);border:1px solid rgba(6,182,212,.3);color:var(--cy);padding:8px 16px;border-radius:100px;font-size:12.5px;font-weight:600;margin-bottom:24px;animation:pg 2.5s ease-in-out infinite}
+@keyframes pg{0%,100%{box-shadow:0 0 0 0 rgba(6,182,212,.3)}50%{box-shadow:0 0 0 8px rgba(6,182,212,0)}}
+.pd{width:7px;height:7px;background:var(--cy);border-radius:50%;animation:pb 1.6s ease-in-out infinite}
+@keyframes pb{0%,100%{opacity:1}50%{opacity:.25}}
+.hh1{font-size:clamp(30px,5vw,54px);font-weight:900;line-height:1.12;color:#fff;margin-bottom:20px}
+.hh1 span{background:linear-gradient(135deg,var(--cy) 0%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdesc{color:rgba(255,255,255,.72);font-size:16.5px;line-height:1.75;margin-bottom:32px}
+.hchips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:36px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.82);padding:8px 15px;border-radius:100px;font-size:13px;font-weight:500}
+.chip i{color:var(--cy)}
+.hbtns{display:flex;gap:14px;flex-wrap:wrap}
+.hcard{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px;backdrop-filter:blur(10px)}
+.hct{color:var(--cy);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;display:flex;align-items:center;gap:7px}
+.hci{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.hci:last-child{margin-bottom:0}
+.hcico{width:36px;height:36px;background:rgba(6,182,212,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cy);font-size:14px;flex-shrink:0;margin-top:2px}
+.hctx strong{display:block;color:#fff;font-size:12.5px;font-weight:700;margin-bottom:2px}
+.hctx a,.hctx span{display:block;color:rgba(255,255,255,.6);font-size:12.5px;transition:color .2s}
+.hctx a:hover{color:var(--cy)}
+
+/* STATS */
+#stats{background:#fff;padding:40px 0;border-bottom:1px solid #e2e8f0}
+.strow{display:grid;grid-template-columns:repeat(5,1fr)}
+.st-item{text-align:center;padding:16px 20px;border-right:1px solid #e2e8f0}
+.st-item:last-child{border-right:none}
+.stn{font-size:30px;font-weight:900;color:var(--bd);line-height:1;margin-bottom:6px}
+.stl{font-size:12.5px;color:var(--mt);font-weight:500;line-height:1.4}
+
+/* QUIÉNES */
+#quienes{padding:100px 0;background:var(--bg)}
+.qsg{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.qsc{background:#fff;border-radius:var(--r);padding:40px;box-shadow:var(--sh);border:1px solid #e2e8f0}
+.qsico{width:54px;height:54px;background:linear-gradient(135deg,var(--bd),var(--bm));border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;margin-bottom:20px}
+.qsc h3{font-size:22px;font-weight:800;margin-bottom:14px}
+.qsc p{color:var(--mt);font-size:15px;line-height:1.8;margin-bottom:12px}
+.qbadge{display:inline-flex;align-items:center;gap:7px;background:rgba(37,99,235,.07);color:var(--bm);padding:7px 13px;border-radius:8px;font-size:12.5px;font-weight:600;margin:4px 4px 0 0}
+
+/* SISTEMA */
+#sistema{background:var(--bd);padding:100px 0;position:relative;overflow:hidden}
+.sisgb{position:absolute;inset:0;background-image:linear-gradient(rgba(6,182,212,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.04) 1px,transparent 1px);background-size:60px 60px}
+.sisin{position:relative;z-index:2}
+.sishdr{text-align:center;margin-bottom:60px}
+.sishdr .st{color:#fff}
+.sishdr .ss{color:rgba(255,255,255,.62);margin:0 auto}
+.sisf{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:60px}
+.sf{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:28px;transition:all .3s}
+.sf:hover{background:rgba(255,255,255,.1);transform:translateY(-4px)}
+.sfic{width:46px;height:46px;background:rgba(6,182,212,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--cy);font-size:19px;margin-bottom:16px}
+.sf h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:7px}
+.sf p{color:rgba(255,255,255,.58);font-size:13.5px;line-height:1.7}
+.sisbot{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.sispl{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.sispl img{width:100%;display:block}
+.sisinf{display:flex;flex-direction:column;gap:22px}
+.dec{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);border-radius:12px;padding:24px}
+.dec h4{color:var(--cy);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:15px}
+.dec p{color:rgba(255,255,255,.68);font-size:13.5px;line-height:1.75}
+.sismi{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:20px}
+.mini i{color:var(--cy);font-size:19px;display:block;margin-bottom:10px}
+.mini strong{display:block;color:#fff;font-size:13.5px;font-weight:700;margin-bottom:4px}
+.mini span{color:rgba(255,255,255,.55);font-size:12.5px}
+
+/* PRODUCTOS */
+#productos{padding:100px 0;background:var(--bg)}
+.prodg{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pc{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid #e2e8f0;transition:all .3s;text-align:center}
+.pc:hover{transform:translateY(-6px);box-shadow:var(--shl);border-color:var(--bm)}
+.pcimg{height:155px;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:18px;border-bottom:1px solid #f1f5f9}
+.pcimg img{max-height:115px;max-width:100%;object-fit:contain}
+.pcb{padding:15px}
+.pcb h4{font-size:12.5px;font-weight:700;color:var(--tx);line-height:1.45}
+.pct{display:inline-block;background:rgba(37,99,235,.08);color:var(--bm);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:100px;margin-top:6px}
+
+/* SERVICIOS */
+#servicios{padding:100px 0;background:#fff}
+.srvg{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.srv{background:var(--bg);border-radius:var(--r);padding:36px 30px;border:1px solid #e2e8f0;transition:all .3s;position:relative;overflow:hidden}
+.srv:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--bm)}
+.srvn{position:absolute;top:-8px;right:16px;font-size:72px;font-weight:900;color:rgba(37,99,235,.05);line-height:1;pointer-events:none;user-select:none}
+.srvico{width:50px;height:50px;background:linear-gradient(135deg,var(--bd),var(--bm));border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;margin-bottom:18px}
+.srv h4{font-size:17px;font-weight:800;margin-bottom:9px}
+.srv p{color:var(--mt);font-size:13.5px;line-height:1.8}
+
+/* GALERÍA */
+#galeria{padding:100px 0;background:var(--bg)}
+.galg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gali{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;position:relative}
+.gali img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gali:hover img{transform:scale(1.07)}
+.gali::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(30,58,138,.45) 0%,transparent 55%);opacity:0;transition:opacity .3s}
+.gali:hover::after{opacity:1}
+
+/* PROYECTOS */
+#proyectos{padding:100px 0;background:#fff}
+.proyg{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.proy{background:var(--bg);border-radius:var(--r);padding:26px;border:1px solid #e2e8f0;display:flex;align-items:flex-start;gap:18px;transition:all .3s}
+.proy:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--bm)}
+.proyico{width:50px;height:50px;background:linear-gradient(135deg,var(--bd),var(--bm));border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;flex-shrink:0}
+.proyi h4{font-size:16px;font-weight:800;margin-bottom:5px}
+.proyi p{color:var(--mt);font-size:13px;line-height:1.65}
+.proyb{display:inline-flex;align-items:center;gap:5px;background:rgba(6,182,212,.1);color:var(--cy);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;margin-top:7px;text-transform:uppercase;letter-spacing:.4px}
+
+/* DESCARGAS */
+#descargas{background:var(--bg);padding:100px 0}
+.dcgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+.dcard{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:30px 26px;display:flex;flex-direction:column;gap:12px;transition:all .3s;box-shadow:var(--sh)}
+.dcard:hover{transform:translateY(-4px);box-shadow:var(--shl);border-color:rgba(37,99,235,.2)}
+.dcico{width:52px;height:52px;background:linear-gradient(135deg,var(--bd),var(--bm));border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;flex-shrink:0}
+.dcard h4{font-size:15px;font-weight:800;color:var(--tx);line-height:1.4;margin:0}
+.dcard p{font-size:13px;color:var(--mt);line-height:1.65;flex:1;margin:0}
+.dcard a.dcbtn{display:inline-flex;align-items:center;gap:8px;background:var(--bm);color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s;margin-top:4px;width:fit-content}
+.dcard a.dcbtn:hover{background:#1d4ed8;transform:translateY(-1px)}
+@media(max-width:900px){.dcgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.dcgrid{grid-template-columns:1fr}}
+/* CERTIFICACIONES */
+#cert{background:var(--bd);padding:100px 0;position:relative;overflow:hidden}
+.certbg{position:absolute;inset:0;background-image:linear-gradient(rgba(6,182,212,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.04) 1px,transparent 1px);background-size:60px 60px}
+.certin{position:relative;z-index:2}
+.certhdr{text-align:center;margin-bottom:56px}
+.certhdr .st{color:#fff}
+.certhdr .ss{color:rgba(255,255,255,.6);margin:0 auto}
+.certcs{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-bottom:48px}
+.certc{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:36px 26px;text-align:center;transition:all .3s}
+.certc:hover{background:rgba(255,255,255,.12);transform:translateY(-4px)}
+.certcic{font-size:38px;color:var(--cy);margin-bottom:14px}
+.certc h4{color:#fff;font-size:19px;font-weight:800;margin-bottom:9px}
+.certc p{color:rgba(255,255,255,.58);font-size:13.5px;line-height:1.75}
+.certq{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);border-radius:16px;padding:36px;text-align:center;max-width:740px;margin:0 auto}
+.certq .fa-quote-left{color:var(--cy);font-size:26px;display:block;margin-bottom:14px}
+.certq blockquote{color:rgba(255,255,255,.82);font-size:16px;line-height:1.8;font-style:italic}
+.certq cite{display:block;color:var(--cy);font-size:12.5px;font-weight:700;margin-top:12px;font-style:normal;text-transform:uppercase;letter-spacing:.8px}
+
+/* CONTACTO */
+#contacto{padding:100px 0;background:var(--bg)}
+.ctg{display:grid;grid-template-columns:1fr 410px;gap:44px;align-items:start}
+.fcard{background:#fff;border-radius:var(--r);padding:40px;box-shadow:var(--sh);border:1px solid #e2e8f0}
+.fcard h3{font-size:21px;font-weight:800;margin-bottom:26px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:12.5px;font-weight:700;margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;border:1.5px solid #e2e8f0;border-radius:8px;font-family:inherit;font-size:13.5px;color:var(--tx);transition:border-color .2s;background:var(--bg)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--bm);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.fg input.err,.fg select.err,.fg textarea.err{border-color:#ef4444}
+.ferr{color:#ef4444;font-size:11.5px;margin-top:4px;display:none}
+.ferr.show{display:block}
+.fg textarea{resize:vertical;min-height:115px}
+.fok{display:none;text-align:center;padding:36px 16px}
+.fok i{font-size:46px;color:#22c55e;margin-bottom:14px}
+.fok h4{font-size:19px;font-weight:800;margin-bottom:7px}
+.fok p{color:var(--mt);font-size:13.5px}
+.icard{background:var(--bd);border-radius:var(--r);padding:36px;color:#fff}
+.icard h3{font-size:19px;font-weight:800;margin-bottom:22px}
+.ii{display:flex;gap:13px;margin-bottom:20px}
+.iiico{width:39px;height:39px;background:rgba(6,182,212,.15);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--cy);font-size:15px;flex-shrink:0}
+.iitx strong{display:block;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.82);margin-bottom:3px}
+.iitx a,.iitx span{display:block;color:rgba(255,255,255,.58);font-size:12.5px;transition:color .2s}
+.iitx a:hover{color:var(--cy)}
+.idiv{border:none;border-top:1px solid rgba(255,255,255,.1);margin:18px 0}
+.ilnks{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.ilb{display:flex;align-items:center;gap:7px;justify-content:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.75);padding:10px;border-radius:8px;font-size:11.5px;font-weight:600;transition:all .2s}
+.ilb:hover{background:rgba(6,182,212,.2);border-color:var(--cy);color:#fff}
+.imap{margin-top:4px;border-radius:9px;overflow:hidden;height:155px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center}
+.imap a{color:var(--cy);font-size:12.5px;font-weight:600;text-align:center;line-height:1.8}
+
+/* FOOTER */
+#footer{background:#0f172a;padding:70px 0 30px;color:rgba(255,255,255,.65)}
+.ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.ftb img{height:50px;margin-bottom:14px}
+.ftb p{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.45);margin-bottom:18px}
+.ftsoc{display:flex;gap:9px}
+.fts{width:36px;height:36px;background:rgba(255,255,255,.07);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);transition:all .2s;font-size:14px}
+.fts:hover{background:var(--bm);color:#fff}
+.ftcol h5{color:#fff;font-size:13.5px;font-weight:800;margin-bottom:16px}
+.ftcol li{margin-bottom:9px}
+.ftcol a{color:rgba(255,255,255,.5);font-size:13.5px;transition:color .2s}
+.ftcol a:hover{color:var(--cy)}
+.ftbot{border-top:1px solid rgba(255,255,255,.08);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12.5px}
+.ftbot a{color:var(--cy)}
+
+/* MODAL */
+.mb{position:fixed;inset:0;background:rgba(15,23,42,.72);z-index:9900;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+.mb.open{opacity:1;pointer-events:all}
+.mbx{background:#fff;border-radius:20px;padding:46px;max-width:520px;width:100%;transform:scale(.95) translateY(14px);transition:transform .3s;max-height:92vh;overflow-y:auto;position:relative}
+.mb.open .mbx{transform:scale(1) translateY(0)}
+.mbc{position:absolute;top:18px;right:18px;background:var(--bg);border:none;width:34px;height:34px;border-radius:8px;font-size:15px;color:var(--mt);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mbc:hover{background:#fee2e2;color:#ef4444}
+.mbt{font-size:24px;font-weight:800;margin-bottom:6px}
+.mbs{color:var(--mt);font-size:13.5px;margin-bottom:28px}
+.msp{text-align:center;padding:30px;display:none}
+.msp i{font-size:30px;color:var(--bm);animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.mok{text-align:center;padding:30px;display:none}
+.mok i{font-size:46px;color:#22c55e;margin-bottom:14px}
+.mok h4{font-size:19px;font-weight:800;margin-bottom:7px}
+.mok p{color:var(--mt);font-size:13.5px;margin-bottom:22px}
+
+/* CHATBOT */
+.cbt{position:fixed;bottom:26px;right:26px;z-index:8500;width:56px;height:56px;background:linear-gradient(135deg,var(--bd),var(--bm));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:21px;border:none;box-shadow:0 8px 32px rgba(37,99,235,.42);transition:all .3s}
+.cbt:hover{transform:scale(1.08)}
+.cbdg{position:absolute;top:-1px;right:-1px;width:17px;height:17px;background:var(--cy);border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--bd);border:2px solid #fff}
+.cwin{position:fixed;bottom:94px;right:26px;z-index:8500;width:350px;max-height:510px;background:#fff;border-radius:20px;box-shadow:0 16px 56px rgba(30,58,138,.2);border:1px solid #e2e8f0;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transition:all .3s}
+.cwin.open{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
+.cwh{background:linear-gradient(135deg,var(--bd),var(--bm));padding:17px 18px;display:flex;align-items:center;justify-content:space-between}
+.cwhi{display:flex;align-items:center;gap:11px}
+.cwav{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.cwht strong{display:block;color:#fff;font-size:13.5px;font-weight:700}
+.cwht span{color:rgba(255,255,255,.68);font-size:11.5px}
+.cwcl{background:rgba(255,255,255,.15);border:none;color:#fff;width:27px;height:27px;border-radius:7px;font-size:13px;display:flex;align-items:center;justify-content:center}
+.cwm{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:11px}
+.cm{max-width:88%}
+.cm.bot{align-self:flex-start}
+.cm.usr{align-self:flex-end}
+.cb2{padding:11px 14px;border-radius:14px;font-size:12.5px;line-height:1.65}
+.cm.bot .cb2{background:var(--bg);color:var(--tx);border-bottom-left-radius:3px}
+.cm.usr .cb2{background:var(--bm);color:#fff;border-bottom-right-radius:3px}
+.ctyp{display:flex;gap:4px;padding:12px 14px;background:var(--bg);border-radius:14px;border-bottom-left-radius:3px;width:fit-content}
+.td{width:7px;height:7px;background:var(--mt);border-radius:50%;animation:tda .9s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.18s}
+.td:nth-child(3){animation-delay:.36s}
+@keyframes tda{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-5px);opacity:1}}
+.cqb{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.cq{background:#fff;border:1.5px solid #e2e8f0;border-radius:100px;padding:5px 12px;font-size:11.5px;font-weight:600;color:var(--bm);transition:all .2s}
+.cq:hover{background:var(--bm);color:#fff;border-color:var(--bm)}
+.cwi{padding:14px;border-top:1px solid #f1f5f9;display:flex;gap:7px}
+.cwi input{flex:1;border:1.5px solid #e2e8f0;border-radius:8px;padding:9px 13px;font-family:inherit;font-size:12.5px;outline:none;transition:border-color .2s}
+.cwi input:focus{border-color:var(--bm)}
+.cwsnd{background:var(--bm);border:none;color:#fff;width:36px;height:36px;border-radius:8px;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.cwsnd:hover{background:#1d4ed8}
+
+/* RESPONSIVE */
+@media(max-width:1080px){.ftg{grid-template-columns:1fr 1fr;gap:32px}.prodg{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:880px){.nav{display:none}.hbg{display:block}.hin{grid-template-columns:1fr}.hcard{display:none}.sisf{grid-template-columns:repeat(2,1fr)}.sisbot{grid-template-columns:1fr}.qsg{grid-template-columns:1fr;gap:26px}.certcs{grid-template-columns:repeat(2,1fr)}.ctg{grid-template-columns:1fr}.prodg{grid-template-columns:repeat(2,1fr)}.strow{grid-template-columns:repeat(3,1fr)}.st-item:nth-child(3){border-right:none}}
+@media(max-width:640px){.srvg{grid-template-columns:1fr}.galg{grid-template-columns:repeat(2,1fr)}.proyg{grid-template-columns:1fr}.certcs{grid-template-columns:1fr}.ftg{grid-template-columns:1fr;gap:26px}.hbtns{flex-direction:column}.frow{grid-template-columns:1fr}.sismi{grid-template-columns:1fr}.strow{grid-template-columns:repeat(2,1fr)}.st-item:nth-child(2){border-right:none}.st-item:nth-child(4){border-right:none}}
+@media(max-width:400px){.strow{grid-template-columns:1fr}.st-item{border-right:none !important;border-bottom:1px solid #e2e8f0}.st-item:last-child{border-bottom:none}.cwin{width:calc(100vw - 20px);right:10px}.galg{grid-template-columns:1fr}.prodg{grid-template-columns:1fr}.ilnks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="ov" id="ov" onclick="closeMob()"></div>
+
+<!-- DRAWER -->
+<nav class="mnav" id="mnav" aria-expanded="false" aria-label="Menú móvil">
+  <div class="mnh">
+    <img src="images/logo-header.png" alt="Gerión Chile" style="height:36px;">
+    <button class="mnc" onclick="closeMob()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="mnl">
+    <a href="#quienes" onclick="closeMob()">Quiénes Somos</a>
+    <a href="#sistema" onclick="closeMob()">Sistema IP</a>
+    <a href="#productos" onclick="closeMob()">Productos</a>
+    <a href="#servicios" onclick="closeMob()">Servicios</a>
+    <a href="#galeria" onclick="closeMob()">Galería</a>
+    <a href="#proyectos" onclick="closeMob()">Proyectos</a>
+    <a href="#cert" onclick="closeMob()">Certificaciones</a>
+    <a href="#descargas" onclick="closeMob()">Descargas</a>
+    <a href="#contacto" onclick="closeMob()">Contacto</a>
+  </div>
+  <div class="mnct">
+    <button class="btn btnp" style="width:100%;justify-content:center;margin-top:8px;" onclick="closeMob();openMod()"><i class="fas fa-file-invoice"></i>Cotizar ahora</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="container hdi">
+    <a href="#" class="logo"><img src="images/logo-header.png" alt="Gerión Chile SpA"></a>
+    <nav class="nav" id="mainNav" aria-label="Principal">
+      <a href="#quienes">Quiénes Somos</a>
+      <a href="#sistema">Sistema IP</a>
+      <a href="#productos">Productos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#cert">Certificaciones</a>
+      <a href="#descargas">Descargas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="hdr">
+      <button class="bcot" onclick="openMod()"><i class="fas fa-file-invoice" style="margin-right:6px;"></i>Cotizar ahora</button>
+      <button class="hbg" onclick="openMob()" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hgb"></div><div class="hgl"></div><div class="hgl2"></div>
+  <div class="container hin">
+    <div>
+      <div class="pill"><span class="pd"></span>Partner oficial Gerión España · Chile</div>
+      <h1 class="hh1">Sistemas de Llamado<br><span>Paciente-Enfermera</span><br>VoIP / PoE</h1>
+      <p class="hdesc">Soluciones profesionales de llamado hospitalario para clínicas y hospitales en Chile. Tecnología IP certificada, cumplimiento del Decreto N°59 y respaldo técnico especializado.</p>
+      <div class="hchips">
+        <span class="chip"><i class="fas fa-shield-halved"></i>Decreto N°59 MINSAL</span>
+        <span class="chip"><i class="fas fa-certificate"></i>Certificado SEC</span>
+        <span class="chip"><i class="fas fa-wifi"></i>Tecnología VoIP/PoE</span>
+        <span class="chip"><i class="fas fa-building-columns"></i>+8 Hospitales</span>
+      </div>
+      <div class="hbtns">
+        <button class="btn btnp" onclick="openMod()"><i class="fas fa-file-invoice"></i>Cotizar ahora</button>
+        <a href="#sistema" class="btn btng"><i class="fas fa-circle-info"></i>Conocer sistema</a>
+      </div>
+    </div>
+    <div class="hcard">
+      <div class="hct"><i class="fas fa-headset"></i>Contacto Directo</div>
+      <div class="hci"><div class="hcico"><i class="fas fa-phone"></i></div><div class="hctx"><strong>Teléfonos</strong><a href="tel:+56999787615">+56 9 9978 7615</a><a href="tel:+56949121470">+56 9 4912 1470</a></div></div>
+      <div class="hci"><div class="hcico"><i class="fas fa-envelope"></i></div><div class="hctx"><strong>Correo</strong><a href="mailto:ventas@gerionchile.cl">ventas@gerionchile.cl</a><a href="mailto:contacto@gerionchile.cl">contacto@gerionchile.cl</a></div></div>
+      <div class="hci"><div class="hcico"><i class="fas fa-location-dot"></i></div><div class="hctx"><strong>Dirección</strong><span>Alameda 1302, Oficina 70</span><span>Santiago Centro, Chile</span></div></div>
+      <div class="hci"><div class="hcico"><i class="fas fa-clock"></i></div><div class="hctx"><strong>Horario</strong><span>Lunes a Viernes</span><span>09:00 – 18:00 hrs</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="strow">
+      <div class="st-item"><div class="stn">8+</div><div class="stl">Hospitales implementados en Chile</div></div>
+      <div class="st-item"><div class="stn">100%</div><div class="stl">Cumplimiento Decreto N°59 MINSAL</div></div>
+      <div class="st-item"><div class="stn">#1</div><div class="stl">Partner LenorGroup en Chile</div></div>
+      <div class="st-item"><div class="stn">SEC</div><div class="stl">Certificación Superintendencia de Electricidad</div></div>
+      <div class="st-item"><div class="stn">1.000+</div><div class="stl">Departamentos y habitaciones implementadas</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIÉNES SOMOS -->
+<section id="quienes">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-building"></i>Quiénes Somos</span><h2 class="st">Expertos en Sistemas Hospitalarios</h2><p class="ss" style="margin:0 auto;">Llevamos la tecnología europea de llamado hospitalario a los establecimientos de salud de Chile.</p></div>
+    <div class="qsg">
+      <div class="qsc">
+        <div class="qsico"><i class="fas fa-globe"></i></div>
+        <h3>Gerión Chile SpA</h3>
+        <p>Somos la representación oficial en Chile de <strong>Gerión España</strong>, empresa con más de 20 años de experiencia en el diseño y fabricación de sistemas de llamado paciente-enfermera para el sector sanitario europeo.</p>
+        <p>Nuestro equipo local aporta conocimiento técnico profundo y cercanía con los requerimientos de la normativa chilena, garantizando soluciones adaptadas al sistema de salud nacional.</p>
+        <p>Operamos desde Santiago Centro, prestando servicios a hospitales públicos y clínicas privadas a lo largo de todo Chile, con proyectos desde Antofagasta hasta la Araucanía.</p>
+        <span class="qbadge"><i class="fas fa-handshake"></i>Partner oficial Gerión España</span>
+        <span class="qbadge"><i class="fas fa-map-marker-alt"></i>Santiago, Chile</span>
+      </div>
+      <div class="qsc">
+        <div class="qsico"><i class="fas fa-star"></i></div>
+        <h3>¿Qué Ofrecemos?</h3>
+        <p>Proveemos soluciones integrales de sistemas de llamado hospitalario: desde el diseño y la ingeniería del proyecto hasta la implementación, puesta en marcha y soporte post-venta.</p>
+        <p>Trabajamos con tecnología <strong>VoIP y PoE</strong> de última generación que permite comunicación bidireccional de audio, integración con sistemas existentes y monitoreo centralizado desde la estación de enfermería.</p>
+        <p>Todos nuestros productos cumplen con la normativa chilena vigente, incluyendo el <strong>Decreto Supremo N°59 del MINSAL</strong> y las certificaciones de la Superintendencia de Electricidad y Combustibles (SEC).</p>
+        <span class="qbadge"><i class="fas fa-microphone"></i>Audio bidireccional</span>
+        <span class="qbadge"><i class="fas fa-network-wired"></i>Tecnología IP</span>
+        <span class="qbadge"><i class="fas fa-file-contract"></i>Normativa certificada</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTEMA IP -->
+<section id="sistema">
+  <div class="sisgb"></div>
+  <div class="container sisin">
+    <div class="sishdr"><span class="tag"><i class="fas fa-network-wired"></i>Sistema IP</span><h2 class="st">Sistema de Llamado IP de Nueva Generación</h2><p class="ss">Tecnología VoIP/PoE con comunicación bidireccional, gestión centralizada y cumplimiento normativo total.</p></div>
+    <div class="sisf">
+      <div class="sf"><div class="sfic"><i class="fas fa-microphone-lines"></i></div><h4>Audio Bidireccional</h4><p>Comunicación de voz en tiempo real entre la habitación del paciente y la estación de enfermería mediante tecnología VoIP de alta fidelidad.</p></div>
+      <div class="sf"><div class="sfic"><i class="fas fa-ethernet"></i></div><h4>Alimentación PoE</h4><p>Los dispositivos se alimentan directamente a través del cable de red, simplificando la instalación y reduciendo los puntos de falla.</p></div>
+      <div class="sf"><div class="sfic"><i class="fas fa-display"></i></div><h4>Visualización en Tiempo Real</h4><p>Pantallas y paneles LED en pasillos y estación de enfermería muestran el estado de llamado con código de colores en tiempo real.</p></div>
+      <div class="sf"><div class="sfic"><i class="fas fa-database"></i></div><h4>Registro Histórico</h4><p>Sistema de software con registro completo de llamadas: hora, habitación, tipo de alerta y tiempo de respuesta del personal de enfermería.</p></div>
+      <div class="sf"><div class="sfic"><i class="fas fa-arrows-up-down-left-right"></i></div><h4>Escalabilidad Total</h4><p>Arquitectura modular que permite ampliar el sistema por fases sin interrumpir el funcionamiento de las unidades existentes.</p></div>
+      <div class="sf"><div class="sfic"><i class="fas fa-shield-halved"></i></div><h4>Normativa MINSAL</h4><p>Diseñado y certificado para cumplir el 100% del Decreto Supremo N°59 del Ministerio de Salud de Chile en todos sus requisitos técnicos.</p></div>
+    </div>
+    <div class="sisbot">
+      <div class="sispl"><img src="images/plano-sistema.png" alt="Plano Sistema de Llamado Gerión Chile"></div>
+      <div class="sisinf">
+        <div class="dec"><h4><i class="fas fa-file-contract"></i>Decreto Supremo N°59 MINSAL</h4><p>El Decreto N°59 del Ministerio de Salud establece los requisitos técnicos y funcionales que deben cumplir los sistemas de llamado en establecimientos de salud chilenos. Gerión Chile garantiza el cumplimiento total de esta normativa en cada proyecto ejecutado.</p></div>
+        <div class="sismi">
+          <div class="mini"><i class="fas fa-building-columns"></i><strong>Hospitales Públicos</strong><span>Proyectos MINSAL con licitación vía Mercado Público y ChileProveedores</span></div>
+          <div class="mini"><i class="fas fa-hospital"></i><strong>Clínicas Privadas</strong><span>Soluciones a medida para el sector privado de salud con altos estándares</span></div>
+        </div>
+        <button class="btn btnc" onclick="openMod()" style="align-self:flex-start;"><i class="fas fa-file-invoice"></i>Solicitar cotización</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section id="productos">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-boxes-stacked"></i>Productos</span><h2 class="st">Catálogo de Equipos</h2><p class="ss" style="margin:0 auto;">Todos los componentes del ecosistema de llamado hospitalario Gerión, fabricados en España con certificación SEC.</p></div>
+    <div class="prodg">
+      <div class="pc"><div class="pcimg"><img src="images/prod-mt07.jpg" alt="Puesto de Control MT-07" loading="lazy"></div><div class="pcb"><h4>Puesto de Control MT-07</h4><span class="pct">Estación Enfermería</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-terminal-display.png" alt="Terminal Display RT-07D" loading="lazy"></div><div class="pcb"><h4>Terminal Display RT-07D</h4><span class="pct">Terminal Habitación</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-luz-4-colores.png" alt="Luz 4 Colores" loading="lazy"></div><div class="pcb"><h4>Luz Señalizadora 4 Colores</h4><span class="pct">Señalización Pasillo</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-pulsador-silicona.jpg" alt="Pulsador Pera Silicona" loading="lazy"></div><div class="pcb"><h4>Pulsador Pera Silicona</h4><span class="pct">Llamado Paciente</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-tirador-bano.jpg" alt="Tirador Emergencia Baño" loading="lazy"></div><div class="pcb"><h4>Tirador de Emergencia Baño</h4><span class="pct">Emergencia Baño</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-terminal-audio-display.jpg" alt="Terminal Audio y Display" loading="lazy"></div><div class="pcb"><h4>Terminal Audio + Display</h4><span class="pct">Terminal Cabecera</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-terminal-cama.jpg" alt="Terminal de Cama" loading="lazy"></div><div class="pcb"><h4>Terminal de Cama</h4><span class="pct">Terminal Cabecera</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-panel-led.jpg" alt="Panel LED Pasillo" loading="lazy"></div><div class="pcb"><h4>Panel LED Pasillo</h4><span class="pct">Señalización</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-pulsera-inalambrica.png" alt="Pulsera Inalámbrica" loading="lazy"></div><div class="pcb"><h4>Pulsera Inalámbrica Colgante</h4><span class="pct">Movilidad Paciente</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-switch.jpg" alt="Switch PoE" loading="lazy"></div><div class="pcb"><h4>Switch PoE de Red</h4><span class="pct">Infraestructura</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-inyector-poe.jpg" alt="Inyector PoE" loading="lazy"></div><div class="pcb"><h4>Inyector PoE</h4><span class="pct">Infraestructura</span></div></div>
+      <div class="pc"><div class="pcimg"><img src="images/prod-servidor.jpg" alt="Servidor y Fuente" loading="lazy"></div><div class="pcb"><h4>Servidor y Fuente de Alimentación</h4><span class="pct">Infraestructura</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-screwdriver-wrench"></i>Servicios</span><h2 class="st">Solución Integral a Tu Medida</h2><p class="ss" style="margin:0 auto;">Acompañamos cada proyecto desde el diseño hasta el soporte post-implementación.</p></div>
+    <div class="srvg">
+      <div class="srv"><span class="srvn">01</span><div class="srvico"><i class="fas fa-helmet-safety"></i></div><h4>Dirección de Obra</h4><p>Gestión técnica integral del proyecto: coordinación con contratistas, inspección en terreno y entrega con protocolos de puesta en marcha certificados por el MINSAL.</p></div>
+      <div class="srv"><span class="srvn">02</span><div class="srvico"><i class="fas fa-user-tie"></i></div><h4>Asesoramiento Personalizado</h4><p>Evaluación de las necesidades de su establecimiento para proponer la solución óptima: tipología de unidades, número de camas, requisitos normativos y presupuesto.</p></div>
+      <div class="srv"><span class="srvn">03</span><div class="srvico"><i class="fas fa-drafting-compass"></i></div><h4>Colaboración en Diseño (ACAD)</h4><p>Trabajo conjunto con el equipo de arquitectura del establecimiento para integrar el sistema de llamado en los planos del proyecto con software ACAD especializado.</p></div>
+      <div class="srv"><span class="srvn">04</span><div class="srvico"><i class="fas fa-hammer"></i></div><h4>Implementación</h4><p>Instalación profesional del sistema completo: cableado estructurado, montaje de dispositivos, configuración de software y pruebas funcionales exhaustivas en cada punto.</p></div>
+      <div class="srv"><span class="srvn">05</span><div class="srvico"><i class="fas fa-headset"></i></div><h4>Soporte Técnico</h4><p>Atención post-instalación para mantenimiento preventivo y correctivo. Técnicos especializados para asistencia en terreno y soporte remoto ante cualquier incidencia.</p></div>
+      <div class="srv"><span class="srvn">06</span><div class="srvico"><i class="fas fa-file-lines"></i></div><h4>Documentación Técnica</h4><p>Entrega de manuales de usuario, planos as-built actualizados, protocolos de mantención y toda la documentación exigida por el MINSAL para la certificación del establecimiento.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-images"></i>Galería</span><h2 class="st">Instalaciones en Chile</h2><p class="ss" style="margin:0 auto;">Imágenes reales de nuestras implementaciones en hospitales y clínicas a lo largo del país.</p></div>
+    <div class="galg">
+      <div class="gali"><img src="images/galeria-1.png" alt="Hospital de Calama" loading="lazy"></div>
+      <div class="gali"><img src="images/galeria-2.png" alt="Hospital Lonquimay" loading="lazy"></div>
+      <div class="gali"><img src="images/galeria-3.jpeg" alt="Instalación Hospital" loading="lazy"></div>
+      <div class="gali"><img src="images/galeria-4.jpeg" alt="Instalación Hospital" loading="lazy"></div>
+      <div class="gali"><img src="images/galeria-5.jpg" alt="Terminal en habitación" loading="lazy"></div>
+      <div class="gali"><img src="images/galeria-6.png" alt="Enfermera con sistema de llamado" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-landmark"></i>Proyectos</span><h2 class="st">Hospitales de Referencia</h2><p class="ss" style="margin:0 auto;">Proyectos implementados en hospitales y clínicas a lo largo de todo Chile.</p></div>
+    <div class="proyg">
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital de Calama</h4><p>Sistema de llamado IP para unidades de hospitalización, UCI y urgencia. Uno de los proyectos más completos ejecutados en el norte de Chile.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>II Región — Antofagasta</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital de Quilacahuín</h4><p>Implementación con señalización de pasillos y terminal bidireccional en habitaciones del establecimiento de la Región de Los Lagos.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>X Región — Los Lagos</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital Sótero del Río</h4><p>Gran proyecto en este complejo asistencial metropolitano, con cobertura de múltiples unidades y pabellones de hospitalización.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>RM — Puente Alto</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital de Collipulli</h4><p>Renovación completa con tecnología IP de nueva generación y cumplimiento total del Decreto N°59 MINSAL.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>IX Región — Araucanía</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital Makewe</h4><p>Sistema adaptado al Hospital Intercultural Makewe Pelale con integración a la infraestructura de red existente.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>IX Región — Araucanía</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Hospital del Cáncer</h4><p>Sistema de alta disponibilidad en unidades oncológicas con registro detallado de atenciones para auditoría clínica.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>Región Metropolitana</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-shield-halved"></i></div><div class="proyi"><h4>Hospital de Carabineros</h4><p>Proyecto con altos estándares de calidad y certificación para todas las unidades del hospital institucional.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>Región Metropolitana</span></div></div>
+      <div class="proy"><div class="proyico"><i class="fas fa-hospital"></i></div><div class="proyi"><h4>Clínica UC Christus</h4><p>Sistema VoIP/PoE integrado a la red hospitalaria con gestión desde enfermería centralizada en clínica privada de alto estándar.</p><span class="proyb"><i class="fas fa-map-marker-alt"></i>Región Metropolitana</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICACIONES -->
+<section id="cert">
+  <div class="certbg"></div>
+  <div class="container certin">
+    <div class="certhdr"><span class="tag"><i class="fas fa-award"></i>Certificaciones</span><h2 class="st">Calidad y Cumplimiento Garantizados</h2><p class="ss">Respaldados por las principales certificaciones del sector sanitario y eléctrico en Chile.</p></div>
+    <div class="certcs">
+      <div class="certc"><div class="certcic"><i class="fas fa-medal"></i></div><h4>Partner LenorGroup</h4><p>Distribuidor oficial y partner número 1 de LenorGroup en Chile, fabricante europeo líder en sistemas de llamado hospitalario presente en más de 40 países.</p></div>
+      <div class="certc"><div class="certcic"><i class="fas fa-bolt"></i></div><h4>Certificación SEC</h4><p>Todos nuestros equipos cuentan con certificación de la Superintendencia de Electricidad y Combustibles (SEC) de Chile, garantizando seguridad y conformidad eléctrica.</p></div>
+      <div class="certc"><div class="certcic"><i class="fas fa-file-medical"></i></div><h4>Decreto N°59 MINSAL</h4><p>Cumplimiento 100% del Decreto Supremo N°59 del Ministerio de Salud, que regula los estándares técnicos de sistemas de llamado en establecimientos de salud de Chile.</p></div>
+    </div>
+    <div class="certq">
+      <i class="fa-solid fa-quote-left"></i>
+      <blockquote>"Los establecimientos hospitalarios deberán contar con un sistema de llamado que permita al paciente comunicarse con el personal de enfermería desde la cama, el baño y las áreas comunes, con señalización visual y sonora en la estación de trabajo."</blockquote>
+      <cite>— Decreto Supremo N°59, Ministerio de Salud de Chile</cite>
+    </div>
+  </div>
+</section>
+
+<!-- DESCARGAS -->
+<section id="descargas">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:0"><span class="tag"><i class="fas fa-download"></i>Descargas</span><h2 class="st">Documentación Técnica</h2><p class="ss" style="margin:0 auto;">Descarga fichas técnicas, manuales de ingeniería y documentación oficial del sistema Gerión IP.</p></div>
+    <div class="dcgrid">
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-book"></i></div>
+        <h4>Catálogo de Productos Gerión IP</h4>
+        <p>Catálogo completo de componentes del sistema Gerión IP con especificaciones técnicas y referencias de cada elemento.</p>
+        <a href="docs/Catalogo-de-producto-Gerion-IP-por-componentes.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-drafting-compass"></i></div>
+        <h4>Directivas de Proyecto Gerión IP</h4>
+        <p>Guía de directivas y lineamientos para la planificación e instalación de proyectos con el sistema Gerión IP.</p>
+        <a href="docs/Directivas-de-proyecto-Gerion-IP.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-person-walking"></i></div>
+        <h4>Documentación Técnica — Errantes</h4>
+        <p>Documentación técnica del módulo de control de errantes del sistema Gerión IP para hospitales y clínicas.</p>
+        <a href="docs/Documentacion-Tecnica-Errantes-Gerion-IP.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-clock-rotate-left"></i></div>
+        <h4>Gerión IP — Históricos</h4>
+        <p>Manual del módulo de registros históricos para el seguimiento y auditoría de eventos del sistema de llamado.</p>
+        <a href="docs/Gerion-IP-Historicos.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-diagram-project"></i></div>
+        <h4>Esquema Gerión IP</h4>
+        <p>Diagramas de instalación y esquemas de conexión del sistema Gerión IP para establecimientos de salud.</p>
+        <a href="docs/EsquemaGerion.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+      <div class="dcard">
+        <div class="dcico"><i class="fas fa-file-contract"></i></div>
+        <h4>Documentación Técnica Gerión IP</h4>
+        <p>Documentación técnica completa del sistema: instalación, configuración y mantenimiento del sistema Gerión IP.</p>
+        <a href="docs/Documentacion-Tecnica-Gerion-IP.pdf" download class="dcbtn"><i class="fas fa-file-pdf"></i>Descargar PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="ctr" style="margin-bottom:52px;"><span class="tag"><i class="fas fa-envelope"></i>Contacto</span><h2 class="st">Conversemos sobre tu Proyecto</h2><p class="ss" style="margin:0 auto;">Nuestro equipo técnico está disponible para responder tus consultas y preparar una propuesta personalizada.</p></div>
+    <div class="ctg">
+      <div class="fcard">
+        <h3>Envíanos un Mensaje</h3>
+        <div id="ctWrap">
+          <form id="ctForm" novalidate>
+            <div class="frow">
+              <div class="fg"><label for="cn">Nombre *</label><input type="text" id="cn" placeholder="Tu nombre"><p class="ferr" id="ecn">Por favor ingresa tu nombre.</p></div>
+              <div class="fg"><label for="ce">Empresa / Hospital *</label><input type="text" id="ce" placeholder="Nombre del establecimiento"><p class="ferr" id="ece">Por favor ingresa tu empresa.</p></div>
+            </div>
+            <div class="fg"><label for="cem">Correo electrónico *</label><input type="email" id="cem" placeholder="correo@empresa.cl"><p class="ferr" id="ecem">Ingresa un correo electrónico válido.</p></div>
+            <div class="fg"><label for="ctel">Teléfono</label><input type="tel" id="ctel" placeholder="+56 9 XXXX XXXX"></div>
+            <div class="fg"><label for="cas">Asunto *</label><select id="cas"><option value="">Selecciona un asunto...</option><option>Cotización de sistema de llamado</option><option>Consulta técnica</option><option>Soporte técnico</option><option>Información de productos</option><option>Licitación pública</option><option>Otro</option></select><p class="ferr" id="ecas">Por favor selecciona un asunto.</p></div>
+            <div class="fg"><label for="cmsg">Mensaje *</label><textarea id="cmsg" placeholder="Cuéntanos sobre tu proyecto, número de camas, unidades a cubrir..."></textarea><p class="ferr" id="ecmsg">Por favor escribe tu mensaje.</p></div>
+            <button type="submit" class="btn btnp" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i>Enviar mensaje</button>
+          </form>
+        </div>
+        <div class="fok" id="ctOk"><i class="fas fa-circle-check"></i><h4>¡Mensaje enviado!</h4><p>Gracias por contactarnos. Nuestro equipo te responderá dentro de las próximas 24 horas hábiles.</p></div>
+      </div>
+      <div class="icard">
+        <h3>Información de Contacto</h3>
+        <div class="ii"><div class="iiico"><i class="fas fa-phone"></i></div><div class="iitx"><strong>Teléfonos</strong><a href="tel:+56999787615">+56 9 9978 7615</a><a href="tel:+56949121470">+56 9 4912 1470</a></div></div>
+        <div class="ii"><div class="iiico"><i class="fas fa-envelope"></i></div><div class="iitx"><strong>Correo Electrónico</strong><a href="mailto:ventas@gerionchile.cl">ventas@gerionchile.cl</a><a href="mailto:contacto@gerionchile.cl">contacto@gerionchile.cl</a></div></div>
+        <div class="ii"><div class="iiico"><i class="fas fa-location-dot"></i></div><div class="iitx"><strong>Dirección</strong><span>Alameda 1302, Oficina 70</span><span>Santiago Centro, Chile</span></div></div>
+        <div class="ii"><div class="iiico"><i class="fas fa-clock"></i></div><div class="iitx"><strong>Horario de Atención</strong><span>Lunes a Viernes</span><span>09:00 – 18:00 hrs</span></div></div>
+        <hr class="idiv">
+        <div class="ilnks">
+          <a href="http://www.chileproveedores.cl" target="_blank" rel="noopener" class="ilb"><i class="fas fa-building-columns"></i>ChileProveedores</a>
+          <a href="http://www.mercadopublico.cl" target="_blank" rel="noopener" class="ilb"><i class="fas fa-store"></i>Mercado Público</a>
+          <a href="https://gerionchile.cl/ticket/index.php" target="_blank" rel="noopener" class="ilb"><i class="fas fa-ticket"></i>Ticket Soporte</a>
+          <a href="#descargas" class="ilb"><i class="fas fa-download"></i>Descargas</a>
+        </div>
+        <div class="imap"><a href="https://maps.google.com/?q=Alameda+1302+Santiago+Chile" target="_blank" rel="noopener"><i class="fas fa-map-location-dot" style="font-size:22px;display:block;margin-bottom:7px;"></i>Ver en Google Maps<br>Alameda 1302, Santiago Centro</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="ftg">
+      <div class="ftb">
+        <img src="images/logo-footer.png" alt="Gerión Chile" style="filter:brightness(0) invert(1);">
+        <p>Sistemas de llamado paciente-enfermera VoIP/PoE para hospitales y clínicas en Chile. Partner oficial de Gerión España. Tecnología certificada SEC y Decreto N°59 MINSAL.</p>
+        <div class="ftsoc">
+          <a href="https://facebook.com/gerionchile" target="_blank" rel="noopener" class="fts" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/gerionchile" target="_blank" rel="noopener" class="fts" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          <a href="mailto:ventas@gerionchile.cl" class="fts" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="ftcol"><h5>Navegación</h5><ul><li><a href="#quienes">Quiénes Somos</a></li><li><a href="#sistema">Sistema IP</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#galeria">Galería</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#cert">Certificaciones</a></li><li><a href="#descargas">Descargas</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+      <div class="ftcol"><h5>Productos</h5><ul><li><a href="#productos">Puesto Control MT-07</a></li><li><a href="#productos">Terminal Display RT-07D</a></li><li><a href="#productos">Pulsador Silicona</a></li><li><a href="#productos">Luz 4 Colores</a></li><li><a href="#productos">Terminal de Cama</a></li><li><a href="#productos">Panel LED Pasillo</a></li><li><a href="#productos">Pulsera Inalámbrica</a></li></ul></div>
+      <div class="ftcol"><h5>Recursos</h5><ul><li><a href="#descargas">Descargas</a></li><li><a href="https://gerionchile.cl/ticket/index.php" target="_blank" rel="noopener">Soporte Técnico</a></li><li><a href="http://www.chileproveedores.cl" target="_blank" rel="noopener">ChileProveedores</a></li><li><a href="http://www.mercadopublico.cl" target="_blank" rel="noopener">Mercado Público</a></li><li><a href="#cert">Certificaciones</a></li><li><a href="javascript:void(0)" onclick="openMod()">Cotizar ahora</a></li></ul></div>
+    </div>
+    <div class="ftbot">
+      <p>&copy; 2024 <strong style="color:rgba(255,255,255,.8)">Gerión Chile SpA</strong>. Todos los derechos reservados.</p>
+      <p>Hecho con <i class="fas fa-heart" style="color:#ef4444;"></i> · <a href="mailto:contacto@gerionchile.cl">contacto@gerionchile.cl</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="mb" id="modBack" role="dialog" aria-modal="true" aria-labelledby="modTit">
+  <div class="mbx" id="modBox">
+    <button class="mbc" onclick="closeMod()" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    <div id="modFW">
+      <h2 class="mbt" id="modTit">Solicitar Cotización</h2>
+      <p class="mbs">Completa el formulario y nuestro equipo te contactará a la brevedad.</p>
+      <form id="modForm" novalidate>
+        <div class="frow">
+          <div class="fg"><label for="mn">Nombre *</label><input type="text" id="mn" placeholder="Tu nombre"><p class="ferr" id="emn">Ingresa tu nombre.</p></div>
+          <div class="fg"><label for="me">Empresa / Hospital *</label><input type="text" id="me" placeholder="Nombre del establecimiento"><p class="ferr" id="eme">Ingresa tu empresa.</p></div>
+        </div>
+        <div class="fg"><label for="mem">Correo electrónico *</label><input type="email" id="mem" placeholder="correo@empresa.cl"><p class="ferr" id="emem">Ingresa un correo válido.</p></div>
+        <div class="fg"><label for="mtel">Teléfono</label><input type="tel" id="mtel" placeholder="+56 9 XXXX XXXX"></div>
+        <div class="fg"><label for="mcam">Número de camas aprox.</label><select id="mcam"><option value="">Seleccionar...</option><option>Menos de 50 camas</option><option>50 – 100 camas</option><option>100 – 200 camas</option><option>200 – 500 camas</option><option>Más de 500 camas</option></select></div>
+        <div class="fg"><label for="mmsg">Descripción del proyecto *</label><textarea id="mmsg" placeholder="Describa las unidades a cubrir, requerimientos especiales..."></textarea><p class="ferr" id="emmsg">Ingresa una descripción del proyecto.</p></div>
+        <button type="submit" class="btn btnp" style="width:100%;justify-content:center;"><i class="fas fa-paper-plane"></i>Enviar cotización</button>
+      </form>
+    </div>
+    <div class="msp" id="modSp"><i class="fas fa-circle-notch"></i><p style="margin-top:14px;color:var(--mt);font-size:13.5px;">Enviando tu solicitud...</p></div>
+    <div class="mok" id="modOk"><i class="fas fa-circle-check"></i><h4>¡Cotización enviada!</h4><p>Nuestro equipo revisará tu solicitud y se pondrá en contacto en las próximas 24 horas hábiles.</p><button class="btn btnp" onclick="closeMod()" style="margin:22px auto 0;"><i class="fas fa-check"></i>Entendido</button></div>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<button class="cbt" id="cbt" onclick="toggleChat()" aria-label="Asistente virtual"><i class="fas fa-comment-dots" id="cico"></i><span class="cbdg" id="cbdg">1</span></button>
+<div class="cwin" id="cwin" aria-live="polite">
+  <div class="cwh"><div class="cwhi"><div class="cwav"><i class="fas fa-robot"></i></div><div class="cwht"><strong>Asistente Gerión</strong><span>● En línea</span></div></div><button class="cwcl" onclick="toggleChat()" aria-label="Cerrar"><i class="fas fa-minus"></i></button></div>
+  <div class="cwm" id="cwm"></div>
+  <div class="cwi"><input type="text" id="cwinp" placeholder="Escribe tu consulta..." onkeydown="if(event.key==='Enter')sendC()" aria-label="Mensaje"><button class="cwsnd" onclick="sendC()" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button></div>
+</div>
+
+<script>
+// MODAL
+function openMod(){document.getElementById('modBack').classList.add('open');document.body.classList.add('no-scroll');document.getElementById('modFW').style.display='block';document.getElementById('modSp').style.display='none';document.getElementById('modOk').style.display='none';}
+function closeMod(){document.getElementById('modBack').classList.remove('open');document.body.classList.remove('no-scroll');}
+document.getElementById('modBack').addEventListener('click',function(e){if(e.target===this)closeMod();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMod();});
+
+// VALIDATION
+function isEmail(v){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());}
+function vf(id,eid,ok){var i=document.getElementById(id),e=document.getElementById(eid);if(!i||!e)return ok;i.classList.toggle('err',!ok);e.classList.toggle('show',!ok);return ok;}
+
+// MODAL FORM
+document.getElementById('modForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var mn=document.getElementById('mn'),me=document.getElementById('me'),mem=document.getElementById('mem'),mmsg=document.getElementById('mmsg');
+  var ok=true;
+  if(!vf('mn','emn',mn.value.trim()!=''))ok=false;
+  if(!vf('me','eme',me.value.trim()!=''))ok=false;
+  if(!vf('mem','emem',isEmail(mem.value)))ok=false;
+  if(!vf('mmsg','emmsg',mmsg.value.trim()!=''))ok=false;
+  if(!ok)return;
+  document.getElementById('modFW').style.display='none';
+  document.getElementById('modSp').style.display='block';
+  setTimeout(function(){document.getElementById('modSp').style.display='none';document.getElementById('modOk').style.display='block';},2000);
+});
+
+// CONTACT FORM
+document.getElementById('ctForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var cn=document.getElementById('cn'),ce=document.getElementById('ce'),cem=document.getElementById('cem'),cas=document.getElementById('cas'),cmsg=document.getElementById('cmsg');
+  var ok=true;
+  if(!vf('cn','ecn',cn.value.trim()!=''))ok=false;
+  if(!vf('ce','ece',ce.value.trim()!=''))ok=false;
+  if(!vf('cem','ecem',isEmail(cem.value)))ok=false;
+  if(!vf('cas','ecas',cas.value!=''))ok=false;
+  if(!vf('cmsg','ecmsg',cmsg.value.trim()!=''))ok=false;
+  if(!ok)return;
+  document.getElementById('ctWrap').style.display='none';
+  document.getElementById('ctOk').style.display='block';
+});
+
+// MOBILE NAV
+function openMob(){document.getElementById('mnav').classList.add('open');document.getElementById('mnav').setAttribute('aria-expanded','true');document.getElementById('ov').classList.add('show');document.body.classList.add('no-scroll');}
+function closeMob(){document.getElementById('mnav').classList.remove('open');document.getElementById('mnav').setAttribute('aria-expanded','false');document.getElementById('ov').classList.remove('show');document.body.classList.remove('no-scroll');}
+
+// HEADER SCROLL
+window.addEventListener('scroll',function(){document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>20);},{passive:true});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var h=this.getAttribute('href');
+    if(!h||h==='#'||h.indexOf('javascript')===0)return;
+    var t=document.querySelector(h);if(!t)return;
+    e.preventDefault();
+    window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-document.getElementById('hdr').offsetHeight,behavior:'smooth'});
+  });
+});
+
+// ACTIVE NAV
+var secs=document.querySelectorAll('section[id]'),navAs=document.querySelectorAll('#mainNav a');
+(function(){var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting)navAs.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id);});});},{rootMargin:'-48% 0px -48% 0px'});secs.forEach(function(s){io.observe(s);});})();
+
+// CHATBOT KB
+var KB={
+  hola:{t:'¡Hola! Bienvenido a Gerión Chile 👋 Soy el asistente virtual. ¿En qué puedo ayudarte?',q:['Servicios','Productos','Sistema IP','Proyectos','Contacto']},
+  servicios:{t:'Ofrecemos: Dirección de Obra, Asesoramiento Personalizado, Diseño ACAD, Implementación, Soporte Técnico y Documentación Técnica completa.',q:['Sistema IP','Cotizar','Contacto']},
+  'sistema ip':{t:'Usamos tecnología VoIP y PoE con audio bidireccional, señalización en pasillos, gestión centralizada y registro histórico. Cumple el Decreto N°59 MINSAL al 100%.',q:['Cotizar','Productos','Decreto']},
+  productos:{t:'Contamos con: Puesto Control MT-07, Terminal RT-07D, Luz 4 Colores, Pulsadores, Terminales de Cama, Paneles LED, Pulsera Inalámbrica, Switch PoE, Inyectores y Servidor.',q:['Sistema IP','Cotizar','Descargas']},
+  proyectos:{t:'Hemos implementado en: Hospital de Calama, Sótero del Río, Hospital de Carabineros, Collipulli, Makewe, Hospital del Cáncer, Clínica UC Christus y Hospital de Quilacahuín.',q:['Certificaciones','Cotizar']},
+  certificaciones:{t:'Contamos con: Certificación SEC, cumplimiento Decreto N°59 MINSAL y somos Partner oficial LenorGroup #1 en Chile.',q:['Sistema IP','Contacto']},
+  contacto:{t:'📞 +56 9 9978 7615 / +56 9 4912 1470\n✉️ ventas@gerionchile.cl\n📍 Alameda 1302, Ofic. 70, Santiago\n🕐 Lunes–Viernes 09:00–18:00 hrs',q:['Cotizar','Soporte']},
+  cotizar:{t:'Puedes solicitar una cotización en el botón "Cotizar ahora". ¿Cuántas camas tiene tu establecimiento? Con esa información preparamos la propuesta.',q:['Sistema IP','Contacto'],a:'openMod'},
+  precio:{t:'Los precios varían según camas, unidades y equipamiento. Te recomendamos una cotización personalizada para obtener valores exactos para tu proyecto.',q:['Cotizar','Contacto']},
+  soporte:{t:'Para soporte técnico abre un ticket en: gerionchile.cl/ticket/index.php o llama al +56 9 9978 7615.',q:['Contacto','Descargas']},
+  descargas:{t:'Fichas técnicas, manuales y documentación oficial disponibles para descargar directamente en la sección <a href="#descargas" onclick="closeChat()">Descargas</a> de este sitio.',q:['Soporte','Contacto']},
+  decreto:{t:'El Decreto N°59 del MINSAL establece los requisitos técnicos para sistemas de llamado hospitalario. Todos nuestros proyectos cumplen esta normativa al 100%.',q:['Certificaciones','Sistema IP']},
+};
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,'');}
+function findR(t){
+  var n=norm(t),ks=Object.keys(KB);
+  for(var i=0;i<ks.length;i++){if(n.includes(norm(ks[i])))return KB[ks[i]];}
+  if(/hola|buenas|hello|hey/.test(n))return KB.hola;
+  if(/servi/.test(n))return KB.servicios;
+  if(/produc|equip|catalog/.test(n))return KB.productos;
+  if(/sistem|llamad|voip|poe/.test(n))return KB['sistema ip'];
+  if(/proyect|hospital|clinic/.test(n))return KB.proyectos;
+  if(/certif|sec|lenor/.test(n))return KB.certificaciones;
+  if(/contac|telefon|correo|email|direcc/.test(n))return KB.contacto;
+  if(/cotiz|presupuest|precio|valor|costo/.test(n))return KB.cotizar;
+  if(/soport|tecnico|ayud|problem/.test(n))return KB.soporte;
+  if(/descarg|manual|ficha|doc/.test(n))return KB.descargas;
+  if(/decreto|minsal|normativ|ley/.test(n))return KB.decreto;
+  return{t:'Disculpa, no entendí bien. Puedo ayudarte con: servicios, productos, sistema IP, proyectos, certificaciones, cotizaciones y contacto.',q:['Servicios','Sistema IP','Cotizar','Contacto']};
+}
+var chatO=false;
+function toggleChat(){
+  chatO=!chatO;
+  document.getElementById('cwin').classList.toggle('open',chatO);
+  document.getElementById('cico').className=chatO?'fas fa-times':'fas fa-comment-dots';
+  document.getElementById('cbdg').style.display=chatO?'none':'flex';
+  if(chatO&&!document.getElementById('cwm').children.length)setTimeout(function(){addBot(KB.hola.t,KB.hola.q);},380);
+}
+function addBot(txt,quick){
+  var m=document.getElementById('cwm'),tp=document.createElement('div');
+  tp.className='cm bot';tp.innerHTML='<div class="ctyp"><span class="td"></span><span class="td"></span><span class="td"></span></div>';
+  m.appendChild(tp);m.scrollTop=m.scrollHeight;
+  setTimeout(function(){
+    if(m.contains(tp))m.removeChild(tp);
+    var el=document.createElement('div');el.className='cm bot';
+    var h='<div class="cb2">'+txt.replace(/\n/g,'<br>')+'</div>';
+    if(quick&&quick.length){h+='<div class="cqb">';quick.forEach(function(q){h+='<button class="cq" onclick="sendQ(\''+q+'\')">'+q+'</button>';});h+='</div>';}
+    el.innerHTML=h;m.appendChild(el);m.scrollTop=m.scrollHeight;
+  },820);
+}
+function addUsr(txt){
+  var m=document.getElementById('cwm'),el=document.createElement('div');
+  el.className='cm usr';el.innerHTML='<div class="cb2">'+txt+'</div>';
+  m.appendChild(el);m.scrollTop=m.scrollHeight;
+}
+function sendC(){
+  var i=document.getElementById('cwinp'),t=i.value.trim();if(!t)return;i.value='';addUsr(t);
+  var r=findR(t);setTimeout(function(){addBot(r.t,r.q);if(r.a==='openMod')setTimeout(openMod,900);},300);
+}
+function sendQ(t){addUsr(t);var r=findR(t);setTimeout(function(){addBot(r.t,r.q);if(r.a==='openMod')setTimeout(openMod,900);},300);}
+</script>
+</body>
+</html>
